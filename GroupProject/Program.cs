@@ -7,11 +7,35 @@ using System.Threading.Tasks;
 
 namespace GroupProject
 {
+
+    struct Loai
+    {
+        string ten;
+        int ma;
+        int tongSL;
+    }
+
+    struct HoaQua
+    {
+        int ma;
+        string ten;
+        int soLuong;
+        DateTime ngayNhap;
+        DateTime ngayHetHan;
+        string xuatSu;
+        int giaNhap;
+        int giaBan;
+        int khoiLuong;
+        bool nhapKhau;
+        string loai;
+    }
+
+
     class Program
     {
-        
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
         }
         static void timkiem()
         {
