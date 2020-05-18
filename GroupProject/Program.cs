@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace GroupProject
 {
 
@@ -32,9 +33,6 @@ namespace GroupProject
 
     class Program
     {
-        static List<HoaQua> listHoaQua;
-        static List<Loai> listLoai;
-
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -91,6 +89,17 @@ namespace GroupProject
         {
             Console.WriteLine("Có {0} loại quả trong siêu thị." + listLoai.Count());
             
+            
+        }
+        static void timkiem()
+        {
+            Console.WriteLine("Nhập loại sản phẩm muốn tìm:");
+            string loai = Console.ReadLine();
+            loai = loai.Trim().ToLower();
+            while (loai.Contains("  "))
+            {
+                loai = loai.Replace("  ", " ");
+            }    
             
         }
     }
