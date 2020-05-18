@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,9 @@ namespace GroupProject
 
     class Program
     {
+        static HoaQua[] listHoaQua = new HoaQua[100];
+        static Loai[] listLoai = new Loai[5];
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -91,7 +95,7 @@ namespace GroupProject
             
             
         }
-        static void timkiem()
+        static void TimKiem(int ma)
         {
             Console.WriteLine("Nhập loại sản phẩm muốn tìm:");
             string loai = Console.ReadLine();
