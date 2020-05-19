@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Odbc;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,29 +38,65 @@ namespace GroupProject
     {
         static SanPham[] listSanPham = new SanPham[0];
         static Loai[] listLoai = new Loai[0];
-        static string tinNhan1 = "có gì đó sai sai, dữ liệu bạn vừa nhập sẽ không được lưu";
+        
 
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
-            NhapLoaiQua();
-            NhapSanPham();
-            ThongKe();
-            Console.ReadKey();
+            Console.WriteLine(StringValue.TIEU_DE);
+            
+            while (true)
+            {
+                switch (ChonCheDo(StringValue.MENU_CHINH))
+                {
+                    case 1: // chức năng nhập 
+                        switch (ChonCheDo(StringValue.MENU_NHAP))
+                        {
+                            case 1:
+                                NhapLoaiQua();
+                                break;
+
+                            case 2:
+                                NhapSanPham();
+                                break;
+                        }
+                        break;
+
+                    case 2:
+                        // chức năng hiển thị
+                        break;
+
+                    case 3:
+                        //chức năng tìm kiếm
+                        break;
+
+                    case 4:
+                        //chức năng sửa thông tin
+                        break;
+
+                    case 5:
+                        //chức năng xóa thông tin
+
+                    case 6:
+                        ThongKe();
+                        break;
+                }
+            }
+            
             
         }
 
         public static void NhapLoaiQua()
         {
-            while (Thoat("bạn thêm loại quả mới? "))
+            while (Thoat(StringValue.TIN_NHAN_THOAT_1))
             {
                 try 
                 {
                     Loai loai = new Loai();
-                    Console.Write("mã: ");
+                    Console.Write(StringValue.MA_LOAI);
                     int ma = int.Parse(Console.ReadLine());
 
-                    Console.Write("tên: ");
+                    Console.Write(StringValue.TEN_LOAI);
                     string ten = Console.ReadLine();
 
                     loai.ma = ma;
@@ -71,7 +108,7 @@ namespace GroupProject
                 } 
                 catch 
                 {
-                    Console.WriteLine(tinNhan1);
+                    Console.WriteLine(StringValue.THONG_BAO_LOI);
                 }
 
             }
@@ -79,43 +116,43 @@ namespace GroupProject
 
         public static void NhapSanPham()
         {
-            while (Thoat("bạn muốn thêm sản phấm mới?"))
+            while (Thoat(StringValue.TIN_NHAN_THOAT_2))
             {
 
                 try
                 {
                     // cần hàm tim kiếm theo tên loại, nếu tồn tại thì thêm, không thì hỏi người dùng có muốn tạo mới không
-                    Console.Write("Loại: ");
+                    Console.Write(StringValue.LOAI);
                     string loai = Console.ReadLine();
 
-                    Console.Write("mã sản phẩm: ");
+                    Console.Write(StringValue.MA_SAN_PHAM);
                     int ma = int.Parse(Console.ReadLine());
 
-                    Console.Write("tên sản phẩm: ");
+                    Console.Write(StringValue.TEN_SAN_PHAM);
                     string ten = Console.ReadLine();
 
-                    Console.Write("số lượng: ");
+                    Console.Write(StringValue.SO_LUONG);
                     int soLuong = int.Parse(Console.ReadLine());
 
-                    Console.Write("khối lượng mỗi sản phẩm: ");
+                    Console.Write(StringValue.KHOI_LUONG);
                     int khoiLuong = int.Parse(Console.ReadLine());
 
-                    Console.Write("xuất xứ: ");
+                    Console.Write(StringValue.XUAT_XU);
                     string xuatXu = Console.ReadLine();
 
-                    Console.Write("ngày nhập: ");
+                    Console.Write(StringValue.NGAY_NHAP);
                     string ngayNhap = Console.ReadLine();
 
-                    Console.Write("hạn sử dụng: ");
+                    Console.Write(StringValue.HAN_DUNG);
                     string ngayHetHan = Console.ReadLine();
 
-                    Console.Write("giá nhập: ");
+                    Console.Write(StringValue.GIA_NHAP);
                     int giaNhap = int.Parse(Console.ReadLine());
 
-                    Console.Write("giá bán: ");
+                    Console.Write(StringValue.GIA_BAN);
                     int giaBan = int.Parse(Console.ReadLine());
 
-                    Console.Write("là hàng nhập khẩu: ");
+                    Console.Write(StringValue.NHAP_KHAU);
                     bool laNhapKhau = bool.Parse(Console.ReadLine());
 
                     if (ma > listSanPham.Length &&
@@ -142,11 +179,12 @@ namespace GroupProject
                         sanPham.loai = loai;
                         //cần hàm tìm kiếm theo tên loại sau đó sẽ cập nhật số lượng sản phẩm trong loại đó
                         ThemSanPham(sanPham);
+                        
                     }
                 }
                 catch
                 {
-                    Console.WriteLine(tinNhan1);
+                    Console.WriteLine(StringValue.THONG_BAO_LOI);
                 }
 
             }
@@ -208,6 +246,13 @@ namespace GroupProject
                         }
                     }
             }
+        }
+
+        public static int ChonCheDo(string thongBao)
+        {
+            Console.Write(thongBao+"\n"+StringValue.CHON_CHE_DO);
+            int i = int.Parse(Console.ReadLine());
+            return i;
         }
 
         static void TimKiem(int ma)
