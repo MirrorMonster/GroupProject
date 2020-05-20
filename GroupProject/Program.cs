@@ -266,6 +266,10 @@ namespace GroupProject
             }    
             
         }
+        public static void HienThi()
+        {
+
+        }
 
     }
 }
