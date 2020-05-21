@@ -257,7 +257,7 @@ namespace GroupProject
 
         public static void DocFile()
         {
-
+            StringBuilder builder = new StringBuilder();
         }
 
         public static void GhiFile()
