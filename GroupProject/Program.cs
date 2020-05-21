@@ -257,7 +257,6 @@ namespace GroupProject
 
         public static void DocFile()
         {
-            // viet hamf na
 
         }
 
