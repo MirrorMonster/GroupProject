@@ -10,14 +10,12 @@ using System.Threading.Tasks;
 
 namespace GroupProject
 {
-
     public struct Loai
     {
        public string ten;
        public int ma;
        public int tongSL;
     }
-
     public struct SanPham
     {
         public int ma;
@@ -45,7 +43,6 @@ namespace GroupProject
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.WriteLine(StringValue.TIEU_DE);
-            
             while (true)
             {
                 //Mở menu chức năng
@@ -94,13 +91,24 @@ namespace GroupProject
                                     }
                                     break;
                                 }
-
                         }
 
                         break;
 
                     case 4:
                         //chức năng sửa thông tin
+                        switch (ChonCheDo(StringValue.MENU_SUA_THONG_TIN))
+                        {
+                            case 1:
+                                {
+
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    break;
+                                }
+                        }
                         break;
 
                     case 5:
@@ -110,12 +118,8 @@ namespace GroupProject
                         ThongKe();
                         break;
                 }
-
             }
-            
-            
         }
-
         public static void NhapLoaiQua()
         {
             while (Thoat(StringValue.TIN_NHAN_THOAT_1))
@@ -219,19 +223,29 @@ namespace GroupProject
 
             }
         }
-
+        /// <summary>
+        /// Chèn Sản phẩm vừa thêm vào cuối mảng lưu sản phẩm
+        /// </summary>
+        /// <param name="sanPham"></param>
         public static void ThemSanPham(SanPham sanPham)
         {
             Array.Resize(ref listSanPham, listSanPham.Length + 1);
             listSanPham[listSanPham.Length - 1] = sanPham;
         }
-
+        /// <summary>
+        /// Chèn Loại vừa thêm vào cuối mảng lưu Loại
+        /// </summary>
+        /// <param name="loai"></param>
         public static void ThemLoaiSanPham(Loai loai)
         {
             Array.Resize(ref listLoai, listLoai.Length + 1);
             listLoai[listLoai.Length - 1] = loai;
         }
-
+        /// <summary>
+        /// Đếm quả theo loại trong listSanPham
+        /// </summary>
+        /// <param name="loai">Loại quả cần đếm</param>
+        /// <returns></returns>
         public static int DemQuaTheoLoai(string loai)
         {
             int count = 0;
@@ -285,6 +299,36 @@ namespace GroupProject
             return i;
         }
 
+        public static void DocFile()
+        {
+            StringBuilder builder = new StringBuilder();
+        }
+
+        public static void GhiFile()
+        {
+
+        }
+        /// <summary>
+        /// Trả về vị trí Sản phẩm muốn tìm
+        /// </summary>
+        /// <param name="danhmuc">Tên sản phẩm người dùng muốn tìm</param>
+        /// <returns></returns>
+        static int TimKiemSanPham(string SanPham)
+        {
+            for (int i = 0; i < listSanPham.Length; i++)
+            {
+                if (listSanPham[i].ten == SanPham)
+                {
+                    return i;
+                }
+            }          
+            return -1;
+        }
+        /// <summary>
+        /// Trả về vị trí Danh mục muốn tìm
+        /// </summary>
+        /// <param name="DanhMuc">Tên Danh mục người dùng muốn tìm</param>
+        /// <returns></returns>
         static int TimKiemDanhMuc(string DanhMuc)
         {
             for (int i = 0; i < listLoai.Length; i++)
@@ -297,29 +341,53 @@ namespace GroupProject
             return -1;
 
         }
-        public static void DocFile()
+        /// <summary>
+        /// Sửa Danh mục
+        /// </summary>
+        /// <param name="index">Vị trí Danh mục tìm được</param>
+        public static void SuaLoai(int index)
         {
-            StringBuilder builder = new StringBuilder();
+            Console.Write(StringValue.MA_LOAI);
+            listLoai[index].ma = int.Parse(Console.ReadLine());
+            Console.Write(StringValue.TEN_LOAI);
+            listLoai[index].ten = xuli( Console.ReadLine());
+            //Console.Write(StringValue.s);
+            //-------:))-------
+            //listLoai[index].;
         }
-
-        public static void GhiFile()
+        /// <summary>
+        /// Sửa Sản Phẩm (Chưa xong)
+        /// </summary>
+        /// <param name="index">Vị trí sản phẩm tìm thấy</param>
+        public static void SuaSanPham(int index)
         {
+            Console.Write(StringValue.MA_SAN_PHAM);
+            listSanPham[index].ma = int.Parse(Console.ReadLine());
+            Console.Write(StringValue.TEN_LOAI);
+            listSanPham[index].ten = xuli(Console.ReadLine());
+            Console.Write(StringValue.GIA_BAN);
+            listSanPham[index].giaBan= int.Parse(Console.ReadLine());
+            Console.Write(StringValue.GIA_NHAP);
+            listSanPham[index].giaNhap= int.Parse(Console.ReadLine());
+            Console.Write(StringValue.LOAI);
+            listSanPham[index].loai= xuli(Console.ReadLine());
+            Console.Write(StringValue.SO_LUONG);
+            listSanPham[index].soLuong= int.Parse(Console.ReadLine();
+            Console.Write(StringValue.TEN_LOAI);
+            //listSanPham[index].ngayHetHan=Console.ReadLine().ToString("dd/MM/yyyy");
+            Console.Write(StringValue.NGAY_NHAP);
+            //listSanPham[index].ngayNhap;
+            Console.Write(StringValue.NHAP_KHAU);
+            //listSanPham[index].nhapKhau;
+            Console.Write(StringValue.XUAT_XU);
+            listSanPham[index].xuatSu= xuli(Console.ReadLine());
 
         }
-
-        static int TimKiemSanPham(string danhmuc)
-        {
-            for (int i = 0; i < listSanPham.Length; i++)
-            {
-                if (listSanPham[i].ten == danhmuc)
-                {
-                    return i;
-                }
-            }          
-            return -1;
-
-        }
-
+        /// <summary>
+        /// Hàm xứ lý chuỗi. Các bạn bổ sung thêm nhé :)
+        /// </summary>
+        /// <param name="chuoi">Chuỗi ban đầu</param>
+        /// <returns></returns>
         public static string xuli(string chuoi)
         {
             chuoi = chuoi.Trim().ToLower();
