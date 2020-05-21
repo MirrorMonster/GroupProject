@@ -154,9 +154,30 @@ namespace GroupProject
                     // cần hàm tim kiếm theo tên loại, nếu tồn tại thì thêm, không thì hỏi người dùng có muốn tạo mới không
                     Console.Write(StringValue.LOAI);
                     string loai = Console.ReadLine();
+                    int loaiQuaIndex = TimKiemDanhMuc(loai);
+                    if (loaiQuaIndex < 0)
+                    {
+                        if (Thoat(StringValue.KHONG_TON_TAI_1 + " " + loai + " " + StringValue.TIN_NHAN_THOAT_1))
+                        {
+                            Array.Resize(ref listLoai, listLoai.Length + 1);
+                            listLoai[listLoai.Length - 1].ten = loai;
+                            if (TimKiemDanhMuc())
+                                listLoai[listLoai.Length - 1].ma = listLoai.Length+1;
+                            else listLoai[listLoai.Length - 1].ma = listLoai.Length;
+                        } else
+                        {
+                            Console.WriteLine(StringValue.THONG_BAO_LOI);
+                            return;
+                        }
+                    }
 
-                    Console.Write(StringValue.MA_SAN_PHAM);
-                    int ma = int.Parse(Console.ReadLine());
+                    int ma;
+                    if (TimKiemSanPham())
+                    {
+                        ma = listSanPham.Length + 1;
+                    }
+                    else ma = listSanPham.Length;
+                    
 
                     Console.Write(StringValue.TEN_SAN_PHAM);
                     string ten = Console.ReadLine();
@@ -207,17 +228,17 @@ namespace GroupProject
                         sanPham.khoiLuong = khoiLuong;
                         sanPham.nhapKhau = laNhapKhau;
                         sanPham.loai = loai;
-                        //cần hàm tìm kiếm theo tên loại sau đó sẽ cập nhật số lượng sản phẩm trong loại đó
+                        listLoai[listLoai.Length-1].tongSL += 1;
                         ThemSanPham(sanPham);
                         
                     }
-                }
-                catch
-                {
-                    Console.WriteLine(StringValue.THONG_BAO_LOI);
-                }
-
             }
+                catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI);
+            }
+
+        }
         }
 
         public static void ThemSanPham(SanPham sanPham)
@@ -245,7 +266,7 @@ namespace GroupProject
 
         public static bool Thoat(string thongBao)
         {
-            Console.Write(thongBao+"(y/n): ");
+            Console.Write(thongBao + "(y/n): ");
             string thoat = Console.ReadLine();
             if (thoat == "y")
                 return true;
@@ -296,6 +317,25 @@ namespace GroupProject
             }
             return -1;
 
+        }
+
+        static bool TimKiemDanhMuc()
+        {
+            foreach (var i in listLoai)
+            {
+                if (i.ma == listLoai.Length)
+                    return true;
+            }
+            return false;
+        }
+        static bool TimKiemSanPham()
+        {
+            foreach(var i in listSanPham)
+            {
+                if (i.ma == listSanPham.Length)
+                    return true;
+            }
+            return false;
         }
         public static void DocFile()
         {
