@@ -266,6 +266,10 @@ namespace GroupProject
             }    
             
         }
+        public static string xuli(string chuoi)
+        {
+            return chuoi;
+        }
 
     }
 }
