@@ -36,6 +36,7 @@ namespace GroupProject
 
     class Program
     {
+        //Khởi tạo 2 mảng lưu sản phẩm và loại sản phẩm
         static SanPham[] listSanPham = new SanPham[0];
         static Loai[] listLoai = new Loai[0];
         
@@ -47,6 +48,7 @@ namespace GroupProject
             
             while (true)
             {
+                //Mở menu chức năng
                 switch (ChonCheDo(StringValue.MENU_CHINH))
                 {
                     case 1: // chức năng nhập 
@@ -68,6 +70,33 @@ namespace GroupProject
 
                     case 3:
                         //chức năng tìm kiếm
+                        switch(ChonCheDo(StringValue.MENU_TIM_KIEM))
+                        {
+                            case 1:
+                                {
+                                    Console.Write("Mời bạn nhập tên loại Sản Phẩm");
+                                    string DanhMuc = Console.ReadLine();
+                                    if(TimKiemDanhMuc(xuli(DanhMuc)) !=-1)
+                                    {
+                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
+                                        //hiển thị thông tin
+                                    }    
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    Console.Write("Mời bạn nhập tên Sản Phẩm");
+                                    string DanhMuc = Console.ReadLine();
+                                    if (TimKiemSanPham(xuli(DanhMuc))!=-1)
+                                    {
+                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
+                                        //hiển thị thông tin
+                                    }
+                                    break;
+                                }
+
+                        }
+
                         break;
 
                     case 4:
@@ -81,6 +110,7 @@ namespace GroupProject
                         ThongKe();
                         break;
                 }
+
             }
             
             
@@ -98,7 +128,7 @@ namespace GroupProject
 
                     Console.Write(StringValue.TEN_LOAI);
                     string ten = Console.ReadLine();
-
+                    ten = xuli(ten);
                     loai.ma = ma;
                     loai.ten = ten;
                     loai.tongSL = DemQuaTheoLoai(loai.ten);
@@ -255,19 +285,37 @@ namespace GroupProject
             return i;
         }
 
-        static void TimKiem(int ma)
+        static int TimKiemDanhMuc(string DanhMuc)
         {
-            Console.WriteLine("Nhập loại sản phẩm muốn tìm:");
-            string loai = Console.ReadLine();
-            loai = loai.Trim().ToLower();
-            while (loai.Contains("  "))
+            for (int i=0;i<listLoai.Length;i++)
             {
-                loai = loai.Replace("  ", " ");
-            }    
-            
+                if (listLoai[i].ten==DanhMuc)
+                {
+                    return i;
+                }    
+            }
+            return -1;
         }
+        static int TimKiemSanPham(string danhmuc)
+        {
+            for (int i = 0; i < listSanPham.Length; i++)
+            {
+                if (listSanPham[i].ten == danhmuc)
+                {
+                    return i;
+                }
+            }          
+            return -1;
+
+        }
+
         public static string xuli(string chuoi)
         {
+            chuoi = chuoi.Trim().ToLower();
+            while(chuoi.Contains("  "))
+            {
+                chuoi = chuoi.Replace("  ", " ");
+            }    
             return chuoi;
         }
 

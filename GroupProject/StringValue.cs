@@ -88,6 +88,8 @@ namespace GroupProject
 
         public static string CHON_CHE_DO = "Mời bạn chọn chế độ: ";
 
+        public static string HOI_TIM_KIEM = "Bạn có muốn tìm tiếp?";
+
 
     }
 }
