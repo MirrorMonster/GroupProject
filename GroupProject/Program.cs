@@ -265,11 +265,6 @@ namespace GroupProject
 
         }
 
-        public static void LayDuLieu()
-        {
-
-        } 
-
         static void TimKiem(int ma)
         {
             Console.WriteLine("Nhập loại sản phẩm muốn tìm:");
