@@ -287,15 +287,26 @@ namespace GroupProject
 
         static int TimKiemDanhMuc(string DanhMuc)
         {
-            for (int i=0;i<listLoai.Length;i++)
+            for (int i = 0; i < listLoai.Length; i++)
             {
-                if (listLoai[i].ten==DanhMuc)
+                if (listLoai[i].ten == DanhMuc)
                 {
                     return i;
-                }    
+                }
             }
             return -1;
+
         }
+        public static void DocFile()
+        {
+            StringBuilder builder = new StringBuilder();
+        }
+
+        public static void GhiFile()
+        {
+
+        }
+
         static int TimKiemSanPham(string danhmuc)
         {
             for (int i = 0; i < listSanPham.Length; i++)
@@ -318,6 +329,5 @@ namespace GroupProject
             }    
             return chuoi;
         }
-
     }
 }
