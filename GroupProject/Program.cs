@@ -255,6 +255,11 @@ namespace GroupProject
             return i;
         }
 
+        public static void DocFile()
+        {
+
+        }
+
         static void TimKiem(int ma)
         {
             Console.WriteLine("Nhập loại sản phẩm muốn tìm:");
