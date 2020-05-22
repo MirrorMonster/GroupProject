@@ -372,7 +372,7 @@ namespace GroupProject
             Console.Write(StringValue.LOAI);
             listSanPham[index].loai= xuli(Console.ReadLine());
             Console.Write(StringValue.SO_LUONG);
-            listSanPham[index].soLuong= int.Parse(Console.ReadLine();
+            listSanPham[index].soLuong= int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
             //listSanPham[index].ngayHetHan=Console.ReadLine().ToString("dd/MM/yyyy");
             Console.Write(StringValue.NGAY_NHAP);
