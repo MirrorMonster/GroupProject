@@ -31,11 +31,11 @@ namespace GroupProject
 
         public static string HAN_DUNG = "hạn sử dụng: ";
 
-        public static string GIA_NHAP = "giá nhập : ";
+        public static string GIA_NHAP = "giá nhập: ";
 
         public static string GIA_BAN = "giá bán lẻ: ";
 
-        public static string NHAP_KHAU = "hàng(nhập khẩu hay nội địa)(true/false): ";
+        public static string NHAP_KHAU = "hàng(nhập khẩu hay nội địa): ";
 
         public static string MA_LOAI = "mã danh mục: ";
 
@@ -87,6 +87,12 @@ namespace GroupProject
         public static string TAM_BIET = "tạm biệt!";
 
         public static string CHON_CHE_DO = "Mời bạn chọn chế độ: ";
+
+        public static string HOI_TIM_KIEM = "Bạn có muốn tìm tiếp?";
+
+        public static string KHONG_TON_TAI_2 = "không có sản phẩm nào tên: ";
+        public static string KHONG_TON_TAI_1 = "không có danh mục sản phẩm nào tên:";
+        public static string CHUYEN_CHE_DO = "chuyển sang chế độ thêm mới loại quả?";
 
 
     }
