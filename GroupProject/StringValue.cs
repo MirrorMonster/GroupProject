@@ -17,6 +17,8 @@ namespace GroupProject
 
         public static string LOAI = "loại sản phẩm: ";
 
+        public static string SP = "sản phẩm: ";
+
         public static string TEN_SAN_PHAM = "tên sản phẩm: ";
 
         public static string MA_SAN_PHAM = "mã sản phẩm: ";
@@ -90,9 +92,18 @@ namespace GroupProject
 
         public static string HOI_TIM_KIEM = "Bạn có muốn tìm tiếp?";
 
-        public static string KHONG_TON_TAI_2 = "không có sản phẩm nào tên: ";
-        public static string KHONG_TON_TAI_1 = "không có danh mục sản phẩm nào tên:";
+        public static string KHONG_TON_TAI_2 = "không có sản phẩm nào tên ";
+
+        public static string KHONG_TON_TAI_1 = "không có danh mục sản phẩm nào tên ";
+
         public static string CHUYEN_CHE_DO = "chuyển sang chế độ thêm mới loại quả?";
+
+
+        public static string FILE_DANH_MUC = "danh mục.txt";
+
+        public static string FILE_SAN_PHAM = "sản phẩm.txt";
+
+        public static string THONG_BAO_LOI_2 = "lỗi file!";
 
 
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Odbc;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,6 +17,7 @@ namespace GroupProject
        public int ma;
        public int tongSL;
     }
+
     public struct SanPham
     {
         public int ma;
@@ -36,13 +38,17 @@ namespace GroupProject
     {
         //Khởi tạo 2 mảng lưu sản phẩm và loại sản phẩm
         public static SanPham[] listSanPham = new SanPham[0];
+
         public static Loai[] listLoai = new Loai[0];
         
-
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Clear();
             Console.WriteLine(StringValue.TIEU_DE);
+
             while (true)
             {
                 //Mở menu chức năng
@@ -60,39 +66,51 @@ namespace GroupProject
                                 break;
                         }
                         break;
-
                     case 2:
                         // chức năng hiển thị
+                        switch (ChonCheDo(StringValue.MENU_HIEN_THI))
+                        {
+                            case 1:
+                                HienThiDanhMuc(listLoai);
+                                break;
+                            case 2:
+                                HienThiSanPham(listSanPham);
+                                break;
+                        }
                         break;
-
                     case 3:
                         //chức năng tìm kiếm
-                        switch(ChonCheDo(StringValue.MENU_TIM_KIEM))
+                        switch (ChonCheDo(StringValue.MENU_TIM_KIEM))
                         {
                             case 1:
                                 {
-                                    Console.Write("Mời bạn nhập tên loại Sản Phẩm");
-                                    string DanhMuc = Console.ReadLine();
-                                    if(TimKiemDanhMuc(xuli(DanhMuc)) !=-1)
+                                    Console.Write(StringValue.TEN_LOAI);
+                                    string danhMuc = Console.ReadLine();
+                                    int index = TimKiemDanhMuc(danhMuc);
+                                    if (index > 0)
                                     {
-                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
-                                        //hiển thị thông tin
-                                    }    
+                                        Loai loai = listLoai[index];
+                                        HienThiDanhMuc(new Loai[] { loai });
+                                    }
+                                    else
+                                        Console.WriteLine(StringValue.KHONG_TON_TAI_2 + " " + danhMuc);
                                     break;
                                 }
                             case 2:
                                 {
                                     Console.Write("Mời bạn nhập tên Sản Phẩm");
-                                    string DanhMuc = Console.ReadLine();
-                                    if (TimKiemSanPham(xuli(DanhMuc))!=-1)
+                                    string sanPham = Console.ReadLine();
+                                    int index2 = TimKiemSanPham(sanPham);
+                                    if (index2 > 0)
                                     {
-                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
-                                        //hiển thị thông tin
+                                        SanPham sp = listSanPham[index2];
+                                        HienThiSanPham(new SanPham[] { sp });
                                     }
+                                    else
+                                        Console.WriteLine(StringValue.KHONG_TON_TAI_2 + " " + sanPham);
                                     break;
                                 }
                         }
-
                         break;
 
                     case 4:
@@ -113,10 +131,12 @@ namespace GroupProject
 
                     case 5:
                         //chức năng xóa thông tin
+                        break;
 
                     case 6:
                         ThongKe();
                         break;
+
                     default:
                         Console.WriteLine(StringValue.TAM_BIET);
                         Environment.Exit(1);
@@ -308,7 +328,7 @@ namespace GroupProject
         public static void ThemLoaiSanPham(Loai loai)
         {
             Array.Resize(ref listLoai,listLoai.Length + 1);
-           listLoai[listLoai.Length - 1] = loai;
+            listLoai[listLoai.Length - 1] = loai;
         }
 
         public static int DemQuaTheoLoai(string loai)
@@ -342,15 +362,15 @@ namespace GroupProject
                     if (sanPham.loai == loai.ten)
                     {
                         string nk = sanPham.nhapKhau ? "nhập khẩu" : "nội địa";
-                        Console.WriteLine("\t\t" + sanPham.ma + "\t" +
-                                        sanPham.ten + "\t" +
-                                        sanPham.soLuong + "\t" +
-                                        sanPham.ngayNhap.ToString("dd/mm/yyyy") + "\t" +
-                                        sanPham.ngayHetHan.ToString("dd/mm/yyyy") + "\t" +
-                                        sanPham.xuatSu + "\t" +
-                                        sanPham.giaNhap + "\t" +
-                                        sanPham.giaBan + "\t" +
-                                        sanPham.khoiLuong + "\t" +
+                        Console.WriteLine("\t\t" + sanPham.ma + "|" +
+                                        sanPham.ten + "|" +
+                                        sanPham.soLuong + "|" +
+                                        sanPham.ngayNhap.ToString("dd/mm/yyyy") + "|" +
+                                        sanPham.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                        sanPham.xuatSu + "|" +
+                                        sanPham.giaNhap + "|" +
+                                        sanPham.giaBan + "|" +
+                                        sanPham.khoiLuong + "|" +
                                         nk);
                     }
                 }
@@ -372,14 +392,110 @@ namespace GroupProject
             return 0;
         }
 
-        public static void DocFile()
+        public static void DocFileDanhMuc()
         {
-            StringBuilder builder = new StringBuilder();
+            StreamReader reader;
+            try
+            {
+                if (!File.Exists(StringValue.FILE_DANH_MUC))
+                    File.Create(StringValue.FILE_DANH_MUC).Close();
+
+                reader = new StreamReader(StringValue.FILE_DANH_MUC);
+                string line = reader.ReadLine();
+                while (line != null)
+                {
+                    string[] data = line.Split('|');
+                    Loai loai = new Loai();
+                    loai.ma = int.Parse(data[0]);
+                    loai.ten = data[1];
+                    loai.tongSL = int.Parse(data[2]);
+                    ThemLoaiSanPham(loai);
+                    line = reader.ReadLine();
+                }
+                reader.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
         }
 
-        public static void GhiFile()
+        public static void GhiFileDanhMuc()
         {
+            StreamWriter writer;
+            try
+            {
+                writer = new StreamWriter(StringValue.FILE_DANH_MUC);
+                foreach(var dm in listLoai)
+                    writer.WriteLine(dm.ma + "|" + dm.ten + "|" + dm.tongSL);
+                writer.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
+        }
 
+        public static void DocFileSanPham()
+        {
+            StreamReader reader;
+            try
+            {
+                if (!File.Exists(StringValue.FILE_SAN_PHAM))
+                    File.Create(StringValue.FILE_SAN_PHAM).Close();
+
+                reader = new StreamReader(StringValue.FILE_SAN_PHAM);
+                string line = reader.ReadLine();
+                while (line != "")
+                {
+                    string[] data = line.Split('|');
+                    SanPham sanPham = new SanPham();
+                    sanPham.loai = data[0];
+                    sanPham.ma = int.Parse(data[1]);
+                    sanPham.ten = data[2];
+                    sanPham.soLuong = int.Parse(data[3]);
+                    sanPham.khoiLuong = int.Parse(data[4]);
+                    sanPham.xuatSu = data[5];
+                    sanPham.ngayNhap = DateTime.Parse(data[6]);
+                    sanPham.ngayHetHan = DateTime.Parse(data[7]);
+                    sanPham.giaNhap = int.Parse(data[8]);
+                    sanPham.giaBan = int.Parse(data[9]);
+                    sanPham.nhapKhau = bool.Parse(data[10]);
+                    ThemSanPham(sanPham);
+                    line = reader.ReadLine();
+                }
+                reader.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
+        }
+
+        public static void GhiFileSanPham()
+        {
+            StreamWriter writer;
+            try
+            {
+                writer = new StreamWriter(StringValue.FILE_SAN_PHAM);
+                foreach(var i in listSanPham)
+                    writer.WriteLine(i.loai + "|" + 
+                                     i.ma + "|" + 
+                                     i.ten + "|" + 
+                                     i.soLuong + "|" + 
+                                     i.khoiLuong + "|" + 
+                                     i.xuatSu + "|" +
+                                     i.ngayNhap.ToString("dd/mm/yyyy") + "|" + 
+                                     i.ngayHetHan.ToString("dd/mm/yyyy") + "|" + 
+                                     i.giaNhap + "|" + 
+                                     i.giaBan + "|" + 
+                                     i.nhapKhau.ToString());
+                writer.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
         }
 
         public static void SuaLoai(int index)
@@ -428,7 +544,29 @@ namespace GroupProject
             return chuoi;
         }
 
+        public static void HienThiDanhMuc(Loai[] l)
+        {
+            Console.WriteLine(StringValue.LOAI);
+            foreach(var i in l)
+                Console.WriteLine(i.ma + "|" + i.ten + "|" + i.tongSL);
+        }
 
+        public static void HienThiSanPham(SanPham[] sp)
+        {
+            Console.WriteLine(StringValue.SP);
+            foreach (var i in sp)
+                Console.WriteLine(i.loai + "|" +
+                                 i.ma + "|" +
+                                 i.ten + "|" +
+                                 i.soLuong + "|" +
+                                 i.khoiLuong + "|" +
+                                 i.xuatSu + "|" +
+                                 i.ngayNhap.ToString("dd/mm/yyyy") + "|" +
+                                 i.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                 i.giaNhap + "|" +
+                                 i.giaBan + "|" +
+                                 i.nhapKhau.ToString());
+        }
     }
 }
 
