@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
 using System.Data.Odbc;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -502,9 +501,9 @@ namespace GroupProject
         public static void SuaLoai(int index)
         {
             Console.Write(StringValue.MA_LOAI);
-            Program.listLoai[index].ma = int.Parse(Console.ReadLine());
+            listLoai[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
-            Program.listLoai[index].ten = xuli(Console.ReadLine());
+            listLoai[index].ten = xuli(Console.ReadLine());
             //Console.Write(StringValue.s);
             //-------:))-------
             //listLoai[index].;
@@ -513,17 +512,17 @@ namespace GroupProject
         public static void SuaSanPham(int index)
         {
             Console.Write(StringValue.MA_SAN_PHAM);
-            Program.listSanPham[index].ma = int.Parse(Console.ReadLine());
+            listSanPham[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
-            Program.listSanPham[index].ten = xuli(Console.ReadLine());
+            listSanPham[index].ten = xuli(Console.ReadLine());
             Console.Write(StringValue.GIA_BAN);
-            Program.listSanPham[index].giaBan = int.Parse(Console.ReadLine());
+            listSanPham[index].giaBan = int.Parse(Console.ReadLine());
             Console.Write(StringValue.GIA_NHAP);
-            Program.listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
+            listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
             Console.Write(StringValue.LOAI);
-            Program.listSanPham[index].loai = xuli(Console.ReadLine());
+            listSanPham[index].loai = xuli(Console.ReadLine());
             Console.Write(StringValue.SO_LUONG);
-            Program.listSanPham[index].soLuong = int.Parse(Console.ReadLine());
+            listSanPham[index].soLuong = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
             //listSanPham[index].ngayHetHan=Console.ReadLine().ToString("dd/MM/yyyy");
             Console.Write(StringValue.NGAY_NHAP);
@@ -531,7 +530,7 @@ namespace GroupProject
             Console.Write(StringValue.NHAP_KHAU);
             //listSanPham[index].nhapKhau;
             Console.Write(StringValue.XUAT_XU);
-            Program.listSanPham[index].xuatSu = xuli(Console.ReadLine());
+            listSanPham[index].xuatSu = xuli(Console.ReadLine());
 
         }
 
