@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.ComponentModel;
 using System.Data.Odbc;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -512,9 +513,9 @@ namespace GroupProject
         public static void SuaLoai(int index)
         {
             Console.Write(StringValue.MA_LOAI);
-            listLoai[index].ma = int.Parse(Console.ReadLine());
+            Program.listLoai[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
-            listLoai[index].ten = xuli(Console.ReadLine());
+            Program.listLoai[index].ten = xuli(Console.ReadLine());
             //Console.Write(StringValue.s);
             //-------:))-------
             //listLoai[index].;
@@ -527,11 +528,11 @@ namespace GroupProject
             Console.Write(StringValue.TEN_LOAI);
             Program.listSanPham[index].ten = xuli(Console.ReadLine());
             Console.Write(StringValue.GIA_BAN);
-            listSanPham[index].giaBan = int.Parse(Console.ReadLine());
+            Program.listSanPham[index].giaBan = int.Parse(Console.ReadLine());
             Console.Write(StringValue.GIA_NHAP);
-            listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
+            Program.listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
             Console.Write(StringValue.LOAI);
-            listSanPham[index].loai = xuli(Console.ReadLine());
+            Program.listSanPham[index].loai = xuli(Console.ReadLine());
             Console.Write(StringValue.SO_LUONG);
             Program.listSanPham[index].soLuong = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
