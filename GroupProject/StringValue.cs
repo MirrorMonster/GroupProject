@@ -70,8 +70,8 @@ namespace GroupProject
                                                 "\n\t************************************";
 
         public static string MENU_XOA_THONG_TIN = "\t******************************" +
-                                                "\n\t*   1.xóa sản phẩm           *" +
-                                                "\n\t*   2.xóa danh mục sản phẩm  *" +
+                                                "\n\t*   1.xóa danh mục sản phẩm  *" +
+                                                "\n\t*   2.xóa sản phẩm           *" +
                                                 "\n\t******************************";
 
         public static string MENU_HIEN_THI =      "\t************************************" +
@@ -79,9 +79,9 @@ namespace GroupProject
                                                 "\n\t*   2.hiển thị danh sách sản phẩm  *" +
                                                 "\n\t************************************";
 
-        public static string THONG_BAO_XOA_DANH_MUC = "bạn có chắc muốn xóa danh mục này?, khi xóa toàn bộ sản phẩm trong danh mục bị xóa theo";
+        public static string THONG_BAO_XOA_DANH_MUC = "bạn có chắc muốn xóa danh mục này?, khi xóa toàn bộ sản phẩm trong danh mục bị xóa theo(y/n)";
 
-        public static string THONG_BAO_XOA_SAN_PHAM = "bạn có chắc muốn xóa sản phẩm này?";
+        public static string THONG_BAO_XOA_SAN_PHAM = "bạn có chắc muốn xóa sản phẩm này(y/n)?";
 
         public static string TIEU_DE = "\tCHƯƠNG TRÌNH QUẢN LÍ HOA QUẢ SẠCH" +
                                        "\n\t   author: Thịnh, Quỳnh, Thu";
