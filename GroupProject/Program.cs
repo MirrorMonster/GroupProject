@@ -84,6 +84,7 @@ namespace GroupProject
                         {
                             case 1:
                                 {
+<<<<<<< HEAD
                                     Console.Write("Mời bạn nhập tên loại Sản Phẩm");
                                     string DanhMuc = Console.ReadLine();
                                     int index = TimKiemDanhMuc(xuli(DanhMuc));
@@ -102,6 +103,13 @@ namespace GroupProject
                                     int index = TimKiemDanhMuc(danhMuc);
                                     if (index > 0)
                                     {
+=======
+                                    Console.Write(StringValue.TEN_LOAI);
+                                    string danhMuc = Console.ReadLine();
+                                    int index = TimKiemDanhMuc(danhMuc);
+                                    if (index > 0)
+                                    {
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
                                         Loai loai = listLoai[index];
                                         HienThiDanhMuc(new Loai[] { loai });
                                     }
@@ -112,6 +120,7 @@ namespace GroupProject
                             case 2:
                                 {
                                     Console.Write("Mời bạn nhập tên Sản Phẩm");
+<<<<<<< HEAD
                                     string SanPham = Console.ReadLine();
                                     int index = TimKiemDanhMuc(xuli(SanPham));
                                     if (index == -1)
@@ -133,6 +142,16 @@ namespace GroupProject
                                         HienThiSanPham(new SanPham[] { sp });
                                     }
                                     else
+=======
+                                    string sanPham = Console.ReadLine();
+                                    int index2 = TimKiemSanPham(sanPham);
+                                    if (index2 > 0)
+                                    {
+                                        SanPham sp = listSanPham[index2];
+                                        HienThiSanPham(new SanPham[] { sp });
+                                    }
+                                    else
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
                                         Console.WriteLine(StringValue.KHONG_TON_TAI_2 + " " + sanPham);
                                     break;
                                 }
@@ -178,7 +197,10 @@ namespace GroupProject
 
                     case 5:
                         //chức năng xóa thông tin
+<<<<<<< HEAD
                         { switch (ChonCheDo(StringValue.MENU_XOA_THONG_TIN))
+=======
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
                         break;
 
                             {
@@ -537,6 +559,7 @@ namespace GroupProject
             catch
             {
                 Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+<<<<<<< HEAD
             }
         }
 
@@ -584,6 +607,35 @@ namespace GroupProject
                     return true;
             }
             return false;
+=======
+            }
+        }
+
+        public static void GhiFileSanPham()
+        {
+            StreamWriter writer;
+            try
+            {
+                writer = new StreamWriter(StringValue.FILE_SAN_PHAM);
+                foreach(var i in listSanPham)
+                    writer.WriteLine(i.loai + "|" + 
+                                     i.ma + "|" + 
+                                     i.ten + "|" + 
+                                     i.soLuong + "|" + 
+                                     i.khoiLuong + "|" + 
+                                     i.xuatSu + "|" +
+                                     i.ngayNhap.ToString("dd/mm/yyyy") + "|" + 
+                                     i.ngayHetHan.ToString("dd/mm/yyyy") + "|" + 
+                                     i.giaNhap + "|" + 
+                                     i.giaBan + "|" + 
+                                     i.nhapKhau.ToString());
+                writer.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
         }
 
         public static void SuaLoai(int index)
@@ -601,9 +653,15 @@ namespace GroupProject
         {
             Console.Write(StringValue.MA_SAN_PHAM);
 <<<<<<< HEAD
+<<<<<<< HEAD
             Program.listSanPham[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_SAN_PHAM);
             Program.listSanPham[index].ten = xuli(Console.ReadLine());
+=======
+            listSanPham[index].ma = int.Parse(Console.ReadLine());
+            Console.Write(StringValue.TEN_LOAI);
+            listSanPham[index].ten = xuli(Console.ReadLine());
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
 =======
             listSanPham[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
@@ -617,11 +675,14 @@ namespace GroupProject
             listSanPham[index].loai = xuli(Console.ReadLine());
             Console.Write(StringValue.SO_LUONG);
 <<<<<<< HEAD
+<<<<<<< HEAD
             Program.listSanPham[index].soLuong= int.Parse(Console.ReadLine());
             Program.listSanPham[index].soLuong = int.Parse(Console.ReadLine());
             Console.Write(StringValue.HAN_DUNG);
             Program.listSanPham[index].ngayHetHan=DateTime.Parse(Console.ReadLine());
 =======
+=======
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
             listSanPham[index].soLuong = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
             //listSanPham[index].ngayHetHan=Console.ReadLine().ToString("dd/MM/yyyy");
@@ -632,6 +693,7 @@ namespace GroupProject
             Program.listSanPham[index].nhapKhau=bool.Parse(Console.ReadLine());
             Console.Write(StringValue.XUAT_XU);
             listSanPham[index].xuatSu = xuli(Console.ReadLine());
+<<<<<<< HEAD
 
         }
 
@@ -643,6 +705,8 @@ namespace GroupProject
             }
             Array.Resize(ref listLoai, listLoai.Length - 1);
         }
+=======
+>>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
 
         public static void XoaSanPham(int index)
         {
