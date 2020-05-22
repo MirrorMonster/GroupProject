@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ComponentModel;
 using System.Data.Odbc;
 using System.Linq;
@@ -64,6 +65,7 @@ namespace GroupProject
 
                     case 2:
                         // chức năng hiển thị
+                        DocFile();
                         break;
 
                     case 3:
@@ -179,7 +181,7 @@ namespace GroupProject
                         sanPham.loai = loai;
                         //cần hàm tìm kiếm theo tên loại sau đó sẽ cập nhật số lượng sản phẩm trong loại đó
                         ThemSanPham(sanPham);
-                        
+
                     }
                 }
                 catch
@@ -257,12 +259,41 @@ namespace GroupProject
 
         public static void DocFile()
         {
-            StringBuilder builder = new StringBuilder();
+            //StringBuilder builder = new StringBuilder();
+            StreamReader f = File.OpenText("HoaQua.txt");
+            string xau = "";
+
+            Console.WriteLine(" Ten SoLuong Ngaynhap Ngayhethan Xuatxu SoLuong Khoiluong Loai Nhapkhau");
+            xau = f.ReadLine();
+            while (xau != null)
+            {
+                string[] sanPham = xau.Split(new string[] { "|" }, StringSplitOptions.None);
+                {
+                    Console.WriteLine("ma san pham:", sanPham[0]);
+                    Console.WriteLine("ten san pham:", sanPham[1]);
+                    Console.WriteLine("ngay nhap san pham:", sanPham[2]);
+                    Console.WriteLine("ngay het han san pham:", sanPham[3]);
+                    Console.WriteLine("so luong san pham:", sanPham[4]);
+                    Console.WriteLine("xuat xu san pham:", sanPham[5]);
+                    Console.WriteLine("gia nhap san pham:", sanPham[6]);
+                    Console.WriteLine("gia ban san pham:", sanPham[7]);
+                    Console.WriteLine("khoi luong san pham:", sanPham[8]);
+                    Console.WriteLine("nhap khau san pham:", sanPham[9]);
+                    Console.WriteLine("loai san pham:", sanPham[10]);
+
+                }
+            }
+            f.Close();
         }
 
         public static void GhiFile()
         {
-
+            StreamWriter sp = new StreamWriter("HoaQua.txt");
+            sp.WriteLine(sp.ToString());
+            sp.Close();
+            StreamWriter loai = new StreamWriter("Loai.txt");
+            loai.WriteLine(sp.ToString());
+            loai.Close();
         }
 
         static void TimKiem(int ma)
