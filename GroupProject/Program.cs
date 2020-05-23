@@ -84,9 +84,10 @@ namespace GroupProject
                         {
                             case 1:
                                 {
-                                    Console.Write("Mời bạn nhập tên loại Sản Phẩm");
-                                    string DanhMuc = Console.ReadLine();
-                                    if(TimKiemDanhMuc(xuli(DanhMuc)) !=-1)
+                                    Console.Write(StringValue.TEN_LOAI);
+                                    string danhMuc = Console.ReadLine();
+                                    int index = TimKiemDanhMuc(danhMuc);
+                                    if (index > 0)
                                     {
                                         Console.WriteLine("Loại sản phẩm muốn tìm là:");
                                         //hiển thị thông tin
