@@ -184,6 +184,13 @@ namespace GroupProject
                                         string ch = Console.ReadLine();
                                         if (ch == "y")
                                         {
+                                            for (int i=0;i<listLoai.Length;i++)
+                                            {
+                                                if(listLoai[i].ten==listSanPham[index2].loai)
+                                                {
+                                                    listLoai[i].tongSL=listLoai[i].tongSL-1;
+                                                }
+                                            }
                                             XoaSanPham(index2);
                                         }
                                     }
@@ -616,6 +623,8 @@ namespace GroupProject
                 listSanPham[i] = listSanPham[i + 1];
             }
             Array.Resize(ref listSanPham, listLoai.Length - 1);
+            
+
         }
 
         public static void XoaSanPhamTheoDanhMuc(string DanhMuc)

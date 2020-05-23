@@ -37,7 +37,7 @@ namespace GroupProject
 
         public static string GIA_BAN = "giá bán lẻ: ";
 
-        public static string NHAP_KHAU = "hàng(nhập khẩu hay nội địa): ";
+        public static string NHAP_KHAU = "hàng(nhập khẩu hay nội địa)(y/n): ";
 
         public static string MA_LOAI = "mã danh mục: ";
 
@@ -79,12 +79,12 @@ namespace GroupProject
                                                 "\n\t*   2.hiển thị danh sách sản phẩm  *" +
                                                 "\n\t************************************";
 
-        public static string THONG_BAO_XOA_DANH_MUC = "bạn có chắc muốn xóa danh mục này?, khi xóa toàn bộ sản phẩm trong danh mục bị xóa theo(y/n)";
+        public static string THONG_BAO_XOA_DANH_MUC = "bạn có chắc muốn xóa danh mục này?, "+"\nkhi xóa toàn bộ sản phẩm trong danh mục bị xóa theo(y/n)";
 
         public static string THONG_BAO_XOA_SAN_PHAM = "bạn có chắc muốn xóa sản phẩm này(y/n)?";
 
         public static string TIEU_DE = "\tCHƯƠNG TRÌNH QUẢN LÍ HOA QUẢ SẠCH" +
-                                       "\n\t   author: Thịnh, Quỳnh, Thu";
+                                       "\n\t   author: Đàm Quang Thịnh, Hoàng Qúy Quỳnh, Nguyễn Thị Thu";
 
         public static string TAM_BIET = "tạm biệt!";
 
