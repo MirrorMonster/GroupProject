@@ -13,9 +13,9 @@ namespace GroupProject
 {
     public struct Loai
     {
-       public string ten;
-       public int ma;
-       public int tongSL;
+        public string ten;
+        public int ma;
+        public int tongSL;
     }
 
     public struct SanPham
@@ -34,13 +34,13 @@ namespace GroupProject
     }
 
 
-   partial class Program
+    partial class Program
     {
         //Khởi tạo 2 mảng lưu sản phẩm và loại sản phẩm
         public static SanPham[] listSanPham = new SanPham[0];
 
         public static Loai[] listLoai = new Loai[0];
-        
+
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
@@ -89,24 +89,28 @@ namespace GroupProject
                                     int index = TimKiemDanhMuc(danhMuc);
                                     if (index > 0)
                                     {
-                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
-                                        //hiển thị thông tin
-                                    }    
+                                        Loai loai = listLoai[index];
+                                        HienThiDanhMuc(new Loai[] { loai });
+                                    }
+                                    else
+                                        Console.WriteLine(StringValue.KHONG_TON_TAI_2 + " " + danhMuc);
                                     break;
                                 }
                             case 2:
                                 {
                                     Console.Write("Mời bạn nhập tên Sản Phẩm");
-                                    string DanhMuc = Console.ReadLine();
-                                    if (TimKiemSanPham(xuli(DanhMuc))!=-1)
+                                    string sanPham = Console.ReadLine();
+                                    int index2 = TimKiemSanPham(sanPham);
+                                    if (index2 > 0)
                                     {
-                                        Console.WriteLine("Loại sản phẩm muốn tìm là:");
-                                        //hiển thị thông tin
+                                        SanPham sp = listSanPham[index2];
+                                        HienThiSanPham(new SanPham[] { sp });
                                     }
+                                    else
+                                        Console.WriteLine(StringValue.KHONG_TON_TAI_2 + " " + sanPham);
                                     break;
                                 }
                         }
-
                         break;
 
                     case 4:
@@ -115,32 +119,11 @@ namespace GroupProject
                         {
                             case 1:
                                 {
-                                    Console.Write("Mời bạn nhập tên Loại");
-                                    string DanhMuc = Console.ReadLine();
-                                    int index = TimKiemDanhMuc(xuli(DanhMuc));
-                                    if (index == -1)
-                                    {
-                                        Console.WriteLine(StringValue.KHONG_TON_TAI_1);
-                                    }
-                                    else
-                                    {
-                                        SuaLoai(index);
-                                    }
+
                                     break;
                                 }
                             case 2:
                                 {
-                                    Console.Write("Mời bạn nhập tên Sản Phẩm");
-                                    string SanPham = Console.ReadLine();
-                                    int index = TimKiemDanhMuc(xuli(SanPham));
-                                    if (index == -1)
-                                    {
-                                        Console.WriteLine(StringValue.KHONG_TON_TAI_2);
-                                    }
-                                    else
-                                    {
-                                        SuaSanPham(index);
-                                    }
                                     break;
                                 }
                         }
@@ -148,47 +131,8 @@ namespace GroupProject
 
                     case 5:
                         //chức năng xóa thông tin
-
-                            {
-                                case 1:
-                                    {
-                                        Console.Write("Mời bạn nhập tên Loại");
-                                        string DanhMuc = Console.ReadLine();
-                                        int index = TimKiemDanhMuc(xuli(DanhMuc));
-                                        if (index == -1)
-                                        {
-                                            Console.WriteLine(StringValue.KHONG_TON_TAI_1);
-                                        }
-                                        else
-                                        {
-                                            Console.Write(StringValue.THONG_BAO_XOA_DANH_MUC);
-                                            string ch = xuli(Console.ReadLine());
-                                            if(ch=="y")    
-                                                XoaLoai(index);
-                                        }
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        Console.Write("Mời bạn nhập tên Sản Phẩm");
-                                        string Sanpham = Console.ReadLine();
-                                        int index = TimKiemDanhMuc(xuli(Sanpham));
-                                        if (index == -1)
-                                        {
-                                            Console.WriteLine(StringValue.KHONG_TON_TAI_2);
-                                        }
-                                        else
-                                        {
-                                            Console.Write(StringValue.THONG_BAO_XOA_SAN_PHAM);
-                                            string ch = xuli(Console.ReadLine());
-                                            if (ch == "y")
-                                                XoaSanPham(index);
-                                        }
-                                        break;
-                                    }
-                            }   
-                        }
                         break;
+
                     case 6:
                         ThongKe();
                         break;
@@ -325,9 +269,26 @@ namespace GroupProject
                 }
 
             }
+        }
 
+        public static bool TimKiemDanhMuc()
+        {
+            foreach (var i in listLoai)
+            {
+                if (i.ma == listLoai.Length)
+                    return true;
+            }
+            return false;
+        }
 
-
+        public static bool TimKiemSanPham()
+        {
+            foreach (var i in listSanPham)
+            {
+                if (i.ma == listSanPham.Length)
+                    return true;
+            }
+            return false;
         }
 
         public static int TimKiemSanPham(string SanPham)
@@ -363,7 +324,7 @@ namespace GroupProject
 
         public static void ThemLoaiSanPham(Loai loai)
         {
-            Array.Resize(ref listLoai,listLoai.Length + 1);
+            Array.Resize(ref listLoai, listLoai.Length + 1);
             listLoai[listLoai.Length - 1] = loai;
         }
 
@@ -389,7 +350,7 @@ namespace GroupProject
 
         public static void ThongKe()
         {
-            Console.WriteLine("trong cửa hàng hiện có " +listLoai.Length + " loại quả:");
+            Console.WriteLine("trong cửa hàng hiện có " + listLoai.Length + " loại quả:");
             foreach (var loai in listLoai)
             {
                 Console.WriteLine("\t" + loai.ten + ": " + loai.tongSL + " sản phẩm");
@@ -462,7 +423,7 @@ namespace GroupProject
             try
             {
                 writer = new StreamWriter(StringValue.FILE_DANH_MUC);
-                foreach(var dm in listLoai)
+                foreach (var dm in listLoai)
                     writer.WriteLine(dm.ma + "|" + dm.ten + "|" + dm.tongSL);
                 writer.Close();
             }
@@ -472,42 +433,66 @@ namespace GroupProject
             }
         }
 
-        public static void DocFile()
+        public static void DocFileSanPham()
         {
-            //StringBuilder builder = new StringBuilder();
-            StreamReader f = File.OpenText("HoaQua.txt");
-            string xau = "";
-
-            Console.WriteLine(" Ten SoLuong Ngaynhap Ngayhethan Xuatxu SoLuong Khoiluong Loai Nhapkhau");
-            xau = f.ReadLine();
-            while (xau != null)
+            StreamReader reader;
+            try
             {
-                string[] sanPham = xau.Split(new string[] { "|" }, StringSplitOptions.None);
-                {
-                    Console.WriteLine("ma san pham:", sanPham[0]);
-                    Console.WriteLine("ten san pham:", sanPham[1]);
-                    Console.WriteLine("ngay nhap san pham:", sanPham[2]);
-                    Console.WriteLine("ngay het han san pham:", sanPham[3]);
-                    Console.WriteLine("so luong san pham:", sanPham[4]);
-                    Console.WriteLine("xuat xu san pham:", sanPham[5]);
-                    Console.WriteLine("gia nhap san pham:", sanPham[6]);
-                    Console.WriteLine("gia ban san pham:", sanPham[7]);
-                    Console.WriteLine("khoi luong san pham:", sanPham[8]);
-                    Console.WriteLine("nhap khau san pham:", sanPham[9]);
-                    Console.WriteLine("loai san pham:", sanPham[10]);
+                if (!File.Exists(StringValue.FILE_SAN_PHAM))
+                    File.Create(StringValue.FILE_SAN_PHAM).Close();
 
+                reader = new StreamReader(StringValue.FILE_SAN_PHAM);
+                string line = reader.ReadLine();
+                while (line != "")
+                {
+                    string[] data = line.Split('|');
+                    SanPham sanPham = new SanPham();
+                    sanPham.loai = data[0];
+                    sanPham.ma = int.Parse(data[1]);
+                    sanPham.ten = data[2];
+                    sanPham.soLuong = int.Parse(data[3]);
+                    sanPham.khoiLuong = int.Parse(data[4]);
+                    sanPham.xuatSu = data[5];
+                    sanPham.ngayNhap = DateTime.Parse(data[6]);
+                    sanPham.ngayHetHan = DateTime.Parse(data[7]);
+                    sanPham.giaNhap = int.Parse(data[8]);
+                    sanPham.giaBan = int.Parse(data[9]);
+                    sanPham.nhapKhau = bool.Parse(data[10]);
+                    ThemSanPham(sanPham);
+                    line = reader.ReadLine();
                 }
+                reader.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
             }
         }
 
-        public static void GhiFile()
+        public static void GhiFileSanPham()
         {
-            StreamWriter sp = new StreamWriter("HoaQua.txt");
-            sp.WriteLine(sp.ToString());
-            sp.Close();
-            StreamWriter loai = new StreamWriter("Loai.txt");
-            loai.WriteLine(sp.ToString());
-            loai.Close();
+            StreamWriter writer;
+            try
+            {
+                writer = new StreamWriter(StringValue.FILE_SAN_PHAM);
+                foreach (var i in listSanPham)
+                    writer.WriteLine(i.loai + "|" +
+                                     i.ma + "|" +
+                                     i.ten + "|" +
+                                     i.soLuong + "|" +
+                                     i.khoiLuong + "|" +
+                                     i.xuatSu + "|" +
+                                     i.ngayNhap.ToString("dd/mm/yyyy") + "|" +
+                                     i.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                     i.giaNhap + "|" +
+                                     i.giaBan + "|" +
+                                     i.nhapKhau.ToString());
+                writer.Close();
+            }
+            catch
+            {
+                Console.WriteLine(StringValue.THONG_BAO_LOI_2);
+            }
         }
 
         public static void SuaLoai(int index)
@@ -524,9 +509,9 @@ namespace GroupProject
         public static void SuaSanPham(int index)
         {
             Console.Write(StringValue.MA_SAN_PHAM);
-            Program.listSanPham[index].ma = int.Parse(Console.ReadLine());
+            listSanPham[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
-            Program.listSanPham[index].ten = xuli(Console.ReadLine());
+            listSanPham[index].ten = xuli(Console.ReadLine());
             Console.Write(StringValue.GIA_BAN);
             listSanPham[index].giaBan = int.Parse(Console.ReadLine());
             Console.Write(StringValue.GIA_NHAP);
@@ -534,24 +519,16 @@ namespace GroupProject
             Console.Write(StringValue.LOAI);
             listSanPham[index].loai = xuli(Console.ReadLine());
             Console.Write(StringValue.SO_LUONG);
-            Program.listSanPham[index].soLuong = int.Parse(Console.ReadLine());
+            listSanPham[index].soLuong = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
             //listSanPham[index].ngayHetHan=Console.ReadLine().ToString("dd/MM/yyyy");
->>>>>>> 8ea73f17e790e59dec566c09cfe939dc6ee06b9e
             Console.Write(StringValue.NGAY_NHAP);
-            Program.listSanPham[index].ngayNhap=DateTime.Parse(Console.ReadLine());
+            //listSanPham[index].ngayNhap;
             Console.Write(StringValue.NHAP_KHAU);
-            Program.listSanPham[index].nhapKhau=bool.Parse(Console.ReadLine());
+            //listSanPham[index].nhapKhau;
             Console.Write(StringValue.XUAT_XU);
-            Program.listSanPham[index].xuatSu = xuli(Console.ReadLine());
+            listSanPham[index].xuatSu = xuli(Console.ReadLine());
 
-        public static void XoaSanPham(int index)
-        {
-            for (int i = index; i < listSanPham.Length - 1; i++)
-            {
-                listSanPham[i] = listSanPham[i + 1];
-            }
-            Array.Resize(ref listSanPham, listLoai.Length - 1);
         }
 
         public static string xuli(string chuoi)
@@ -567,7 +544,7 @@ namespace GroupProject
         public static void HienThiDanhMuc(Loai[] l)
         {
             Console.WriteLine(StringValue.LOAI);
-            foreach(var i in l)
+            foreach (var i in l)
                 Console.WriteLine(i.ma + "|" + i.ten + "|" + i.tongSL);
         }
 
@@ -589,5 +566,3 @@ namespace GroupProject
         }
     }
 }
-
-
