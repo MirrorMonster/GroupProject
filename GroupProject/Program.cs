@@ -165,7 +165,13 @@ namespace GroupProject
                                         string ch = Console.ReadLine();
                                         if (ch == "y")
                                         {
-                                            XoaSanPhamTheoDanhMuc(DanhMuc);
+                                            for (int i = 0; i < listSanPham.Length; i++)
+                                            {
+                                                if (listSanPham[i].loai == DanhMuc)
+                                                {
+                                                    XoaSanPham(i);
+                                                }
+                                            }
                                             XoaLoai(index);
                                         }
                                     }
@@ -200,7 +206,6 @@ namespace GroupProject
                                     break;
                                 }
                         }
-
                         break;
 
                     case 6:
@@ -627,17 +632,6 @@ namespace GroupProject
 
         }
 
-        public static void XoaSanPhamTheoDanhMuc(string DanhMuc)
-        {
-            for(int i=0;i<listSanPham.Length;i++)
-            {
-                if(listSanPham[i].loai==DanhMuc)
-                {
-                    XoaSanPham(i);
-                }    
-            }    
-        }
-
         public static string xuli(string chuoi)
         {
             chuoi = chuoi.Trim().ToLower();
@@ -659,6 +653,8 @@ namespace GroupProject
         {
             Console.WriteLine(StringValue.SP);
             foreach (var i in sp)
+            {
+                string nk = i.nhapKhau ? "nhập khẩu" : "nội địa";
                 Console.WriteLine(i.loai + "|" +
                                  i.ma + "|" +
                                  i.ten + "|" +
@@ -669,7 +665,8 @@ namespace GroupProject
                                  i.ngayHetHan.ToString("dd/MM/yyyy") + "|" +
                                  i.giaNhap + "|" +
                                  i.giaBan + "|" +
-                                 i.nhapKhau.ToString());
+                                 nk);
+            }
         }
     }
 }
