@@ -47,6 +47,9 @@ namespace GroupProject
             Console.BackgroundColor = ConsoleColor.Blue;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Clear();
+            DocFileDanhMuc();
+            DocFileSanPham();
+            
             Console.WriteLine(StringValue.TIEU_DE);
 
             while (true)
@@ -138,6 +141,8 @@ namespace GroupProject
                         break;
 
                     default:
+                        GhiFileDanhMuc();
+                        GhiFileSanPham();
                         Console.WriteLine(StringValue.TAM_BIET);
                         Environment.Exit(1);
                         break;
@@ -152,18 +157,20 @@ namespace GroupProject
                 try
                 {
                     Loai loai = new Loai();
-                    Console.Write(StringValue.MA_LOAI);
-                    int ma = int.Parse(Console.ReadLine());
-
                     Console.Write(StringValue.TEN_LOAI);
                     string ten = Console.ReadLine();
                     ten = xuli(ten);
-                    loai.ma = ma;
                     loai.ten = ten;
+                    if (TimKiemDanhMuc())
+                    {
+                        loai.ma = listLoai.Length + 1;
+                    }
+                    else loai.ma = listLoai.Length;
                     loai.tongSL = DemQuaTheoLoai(loai.ten);
 
-                    if (ten != "" && ma > listLoai.Length - 1)
+                    if (ten != "")
                         ThemLoaiSanPham(loai);
+                    else Console.WriteLine(StringValue.THONG_BAO_LOI);
                 }
                 catch
                 {
@@ -174,6 +181,7 @@ namespace GroupProject
         }
 
         public static void NhapSanPham()
+
         {
             while (Thoat(StringValue.TIN_NHAN_THOAT_2))
             {
@@ -188,11 +196,12 @@ namespace GroupProject
                     {
                         if (Thoat(StringValue.KHONG_TON_TAI_1 + " " + loai + " " + StringValue.TIN_NHAN_THOAT_1))
                         {
-                            Array.Resize(ref listLoai, listLoai.Length + 1);
-                            listLoai[listLoai.Length - 1].ten = loai;
+                            Loai loaiQua = new Loai();
+                            loaiQua.ten = loai;
                             if (TimKiemDanhMuc())
-                                listLoai[listLoai.Length - 1].ma = listLoai.Length + 1;
-                            else listLoai[listLoai.Length - 1].ma = listLoai.Length;
+                                loaiQua.ma = listLoai.Length + 1;
+                            else loaiQua.ma = listLoai.Length;
+                            ThemLoaiSanPham(loaiQua);
                         }
                         else
                         {
@@ -234,10 +243,13 @@ namespace GroupProject
                     int giaBan = int.Parse(Console.ReadLine());
 
                     Console.Write(StringValue.NHAP_KHAU);
-                    bool laNhapKhau = bool.Parse(Console.ReadLine());
+                    string nk = Console.ReadLine();
+                    bool laNhapKhau;
+                    if (nk == "y")
+                        laNhapKhau = true;
+                    else laNhapKhau = false;
 
-                    if (ma > listSanPham.Length &&
-                        ten != "" &&
+                    if (ten != "" &&
                         soLuong > 0 &&
                         khoiLuong > 0 &&
                         xuatXu != "" &&
@@ -258,10 +270,10 @@ namespace GroupProject
                         sanPham.khoiLuong = khoiLuong;
                         sanPham.nhapKhau = laNhapKhau;
                         sanPham.loai = loai;
-                        listLoai[listLoai.Length - 1].tongSL += 1;
+                        listLoai[TimKiemDanhMuc(loai)].tongSL += 1;
                         ThemSanPham(sanPham);
-
                     }
+                    else Console.WriteLine(StringValue.THONG_BAO_LOI);
                 }
                 catch
                 {
@@ -269,6 +281,18 @@ namespace GroupProject
                 }
 
             }
+        }
+
+        public static void ThemSanPham(SanPham sanPham)
+        {
+            Array.Resize(ref listSanPham, listSanPham.Length + 1);
+            listSanPham[listSanPham.Length - 1] = sanPham;
+        }
+
+        public static void ThemLoaiSanPham(Loai loai)
+        {
+            Array.Resize(ref listLoai, listLoai.Length + 1);
+            listLoai[listLoai.Length - 1] = loai;
         }
 
         public static bool TimKiemDanhMuc()
@@ -316,18 +340,6 @@ namespace GroupProject
 
         }
 
-        public static void ThemSanPham(SanPham sanPham)
-        {
-            Array.Resize(ref listSanPham, listSanPham.Length + 1);
-            listSanPham[listSanPham.Length - 1] = sanPham;
-        }
-
-        public static void ThemLoaiSanPham(Loai loai)
-        {
-            Array.Resize(ref listLoai, listLoai.Length + 1);
-            listLoai[listLoai.Length - 1] = loai;
-        }
-
         public static int DemQuaTheoLoai(string loai)
         {
             int count = 0;
@@ -362,8 +374,8 @@ namespace GroupProject
                         Console.WriteLine("\t\t" + sanPham.ma + "|" +
                                         sanPham.ten + "|" +
                                         sanPham.soLuong + "|" +
-                                        sanPham.ngayNhap.ToString("dd/mm/yyyy") + "|" +
-                                        sanPham.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                        sanPham.ngayNhap.ToString("dd/MM/yyyy") + "|" +
+                                        sanPham.ngayHetHan.ToString("dd/MM/yyyy") + "|" +
                                         sanPham.xuatSu + "|" +
                                         sanPham.giaNhap + "|" +
                                         sanPham.giaBan + "|" +
@@ -443,7 +455,7 @@ namespace GroupProject
 
                 reader = new StreamReader(StringValue.FILE_SAN_PHAM);
                 string line = reader.ReadLine();
-                while (line != "")
+                while (line != null)
                 {
                     string[] data = line.Split('|');
                     SanPham sanPham = new SanPham();
@@ -482,8 +494,8 @@ namespace GroupProject
                                      i.soLuong + "|" +
                                      i.khoiLuong + "|" +
                                      i.xuatSu + "|" +
-                                     i.ngayNhap.ToString("dd/mm/yyyy") + "|" +
-                                     i.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                     i.ngayNhap.ToString("dd/MM/yyyy") + "|" +
+                                     i.ngayHetHan.ToString("dd/MM/yyyy") + "|" +
                                      i.giaNhap + "|" +
                                      i.giaBan + "|" +
                                      i.nhapKhau.ToString());
@@ -558,8 +570,8 @@ namespace GroupProject
                                  i.soLuong + "|" +
                                  i.khoiLuong + "|" +
                                  i.xuatSu + "|" +
-                                 i.ngayNhap.ToString("dd/mm/yyyy") + "|" +
-                                 i.ngayHetHan.ToString("dd/mm/yyyy") + "|" +
+                                 i.ngayNhap.ToString("dd/MM/yyyy") + "|" +
+                                 i.ngayHetHan.ToString("dd/MM/yyyy") + "|" +
                                  i.giaNhap + "|" +
                                  i.giaBan + "|" +
                                  i.nhapKhau.ToString());
