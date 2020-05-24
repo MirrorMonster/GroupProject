@@ -100,9 +100,9 @@ namespace GroupProject
         public static string CHUYEN_CHE_DO = "chuyển sang chế độ thêm mới loại quả?";
 
 
-        public static string FILE_DANH_MUC = "danh mục.txt";
+        public static string FILE_DANH_MUC = "Loai.txt";
 
-        public static string FILE_SAN_PHAM = "sản phẩm.txt";
+        public static string FILE_SAN_PHAM = "HoaQua.txt";
 
         public static string THONG_BAO_LOI_2 = "lỗi file!";
 

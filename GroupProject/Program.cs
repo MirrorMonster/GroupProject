@@ -7,32 +7,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Net.Http.Headers;
 
 namespace GroupProject
 {
-    public struct Loai
-    {
-        public string ten;
-        public int ma;
-        public int tongSL;
-    }
-
-    public struct SanPham
-    {
-        public int ma;
-        public string ten;
-        public int soLuong;
-        public DateTime ngayNhap;
-        public DateTime ngayHetHan;
-        public string xuatSu;
-        public int giaNhap;
-        public int giaBan;
-        public int khoiLuong;
-        public bool nhapKhau;
-        public string loai;
-    }
-
+    
 
     partial class Program
     {
@@ -586,52 +565,97 @@ namespace GroupProject
 
         public static void SuaLoai(int index)
         {
-            Console.Write(StringValue.MA_LOAI);
-            listLoai[index].ma = int.Parse(Console.ReadLine());
             Console.Write(StringValue.TEN_LOAI);
-            listLoai[index].ten = xuli(Console.ReadLine());
+            string oldName = listLoai[index].ten;
+            string newName = xuli(Console.ReadLine());
+            listLoai[index].ten = newName;
+            for(int i =0; i<listSanPham.Length; i++)
+            {
+                if(listSanPham[i].loai == oldName) 
+                {
+                    listSanPham[i].loai = newName;
+                } 
+            }
         }
 
         public static void SuaSanPham(int index)
         {
-            Console.Write(StringValue.MA_SAN_PHAM);
-            listSanPham[index].ma = int.Parse(Console.ReadLine());
+            SanPham sp = listSanPham[index];
 
-            Console.Write(StringValue.TEN_SAN_PHAM); 
-            listSanPham[index].ten = xuli(Console.ReadLine());
+            UpdateString(ref sp.ten, StringValue.TEN_SAN_PHAM);
+            UpdateString(ref sp.xuatSu, StringValue.XUAT_XU);
 
-            Console.Write(StringValue.GIA_NHAP);
-            listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
+            UpdateInt(ref sp.soLuong, StringValue.SO_LUONG);
+            UpdateInt(ref sp.giaNhap, StringValue.GIA_NHAP);
+            UpdateInt(ref sp.giaBan, StringValue.GIA_BAN);
+            UpdateInt(ref sp.khoiLuong, StringValue.KHOI_LUONG);
 
-            Console.Write(StringValue.GIA_BAN);
-            listSanPham[index].giaBan = int.Parse(Console.ReadLine());
-
-            Console.Write(StringValue.LOAI+" Nếu bạn không muốn sửa nhấn Enter");
-            string type=xuli(Console.ReadLine());
-            if(type!="")
-            {            
-                listSanPham[index].loai = type;
-
-            }
-
-            Console.Write(StringValue.SO_LUONG);
-            listSanPham[index].soLuong = int.Parse(Console.ReadLine());
-
-            Console.Write(StringValue.NGAY_NHAP);
-            listSanPham[index].ngayNhap = DateTime.Parse(Console.ReadLine());
-
-            Console.Write(StringValue.HAN_DUNG);
-            listSanPham[index].ngayHetHan=DateTime.Parse(Console.ReadLine());
-
-            Console.Write(StringValue.XUAT_XU);
-            listSanPham[index].xuatSu = xuli(Console.ReadLine());
+            UpdateDate(ref sp.ngayNhap, StringValue.NGAY_NHAP);
+            UpdateDate(ref sp.ngayHetHan, StringValue.HAN_DUNG);
 
             Console.Write(StringValue.NHAP_KHAU);
-            string nk = Console.ReadLine();
-            if (nk == "y")
-                listSanPham[index].nhapKhau = true;
-            else listSanPham[index].nhapKhau = false;
+            string value = Console.ReadLine();
+            if (value != "")
+                if (value == "y")
+                    sp.nhapKhau = true;
+                else sp.nhapKhau = false;
 
+            Console.Write(StringValue.TEN_LOAI);
+            string loai = Console.ReadLine();
+            if (loai != "")
+            {
+                int indexLoai = TimKiemDanhMuc(loai);
+                if (indexLoai >= 0)
+                {
+                    listLoai[indexLoai].tongSL += 1;
+                    sp.loai = loai;
+                }
+                    
+                else
+                {
+                    Console.Write("không tồn tại sản phẩm tên " + loai + "bạn có muốn thêm danh mục mới?(y/n)");
+                    string yes = Console.ReadLine();
+                    if (yes == "y")
+                    {
+                        Loai loai1 = new Loai();
+                        loai1.ten = loai;
+                        loai1.tongSL = 1;
+                        if (TimKiemDanhMuc())
+                            loai1.ma = listLoai.Length + 1;
+                        else loai1.ma = listLoai.Length;
+                        Array.Resize(ref listLoai, listLoai.Length + 1);
+                        listLoai[listLoai.Length - 1] = loai1;
+                        sp.loai = loai;
+                    }
+                    else Console.WriteLine(StringValue.THONG_BAO_LOI);
+                }
+            }
+                
+            listSanPham[index] = sp;
+        }
+
+        public static void UpdateString(ref string s, string type)
+        {
+            Console.Write(type);
+            string value = Console.ReadLine();
+            if (value != "")
+                s = value;
+        }
+
+        public static void UpdateInt(ref int i, string type)
+        {
+            Console.Write(type);
+            string value = Console.ReadLine();
+            if (value != "")
+                i = int.Parse(value);
+        }
+
+        public static void UpdateDate(ref DateTime date, string type)
+        {
+            Console.Write(type);
+            string value = Console.ReadLine();
+            if (value != "")
+                date = DateTime.Parse(value);
         }
 
         public static void XoaLoai(int index)
