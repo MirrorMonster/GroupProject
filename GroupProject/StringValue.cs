@@ -51,6 +51,7 @@ namespace GroupProject
                                         "\n\t*  4.sửa thông tin              *" +
                                         "\n\t*  5.xóa thông tin              *" +
                                         "\n\t*  6.thống kê toàn bộ thông tin *" +
+                                        "\n\t*  7.Lưu                        *" +
                                         "\n\t*********************************";
                                         
         public static string MENU_NHAP = "\t*********************************" +
@@ -84,7 +85,7 @@ namespace GroupProject
         public static string THONG_BAO_XOA_SAN_PHAM = "bạn có chắc muốn xóa sản phẩm này(y/n)?";
 
         public static string TIEU_DE = "\tCHƯƠNG TRÌNH QUẢN LÍ HOA QUẢ SẠCH" +
-                                       "\n\t   author: Đàm Quang Thịnh, Hoàng Qúy Quỳnh, Nguyễn Thị Thu";
+                                       "\n\t   author: Thịnh, Quỳnh, Thu";
 
         public static string TAM_BIET = "tạm biệt!";
 

@@ -212,6 +212,11 @@ namespace GroupProject
                         ThongKe();
                         break;
 
+                    case 7:
+                        GhiFileDanhMuc();
+                        GhiFileSanPham();
+                        break;
+
                     default:
                         GhiFileDanhMuc();
                         GhiFileSanPham();
@@ -482,7 +487,7 @@ namespace GroupProject
                     File.Create(StringValue.FILE_DANH_MUC).Close();
 
                 reader = new StreamReader(StringValue.FILE_DANH_MUC);
-                string line = reader.ReadLine();
+                string line = reader.ReadLine();    
                 while (line != null)
                 {
                     string[] data = line.Split('|');
@@ -507,8 +512,8 @@ namespace GroupProject
             try
             {
                 writer = new StreamWriter(StringValue.FILE_DANH_MUC);
-                foreach (var dm in listLoai)
-                    writer.WriteLine(dm.ma + "|" + dm.ten + "|" + dm.tongSL);
+                foreach (var danhMuc in listLoai)
+                    writer.WriteLine(danhMuc.ma + "|" + danhMuc.ten + "|" + danhMuc.tongSL);
                 writer.Close();
             }
             catch
@@ -591,24 +596,36 @@ namespace GroupProject
         {
             Console.Write(StringValue.MA_SAN_PHAM);
             listSanPham[index].ma = int.Parse(Console.ReadLine());
-            Console.Write(StringValue.TEN_LOAI);
+
+            Console.Write(StringValue.TEN_SAN_PHAM); 
             listSanPham[index].ten = xuli(Console.ReadLine());
-            Console.Write(StringValue.GIA_BAN);
-            listSanPham[index].giaBan = int.Parse(Console.ReadLine());
+
             Console.Write(StringValue.GIA_NHAP);
             listSanPham[index].giaNhap = int.Parse(Console.ReadLine());
+
+            Console.Write(StringValue.GIA_BAN);
+            listSanPham[index].giaBan = int.Parse(Console.ReadLine());
+
             Console.Write(StringValue.LOAI);
             listSanPham[index].loai = xuli(Console.ReadLine());
+
             Console.Write(StringValue.SO_LUONG);
             listSanPham[index].soLuong = int.Parse(Console.ReadLine());
-            Console.Write(StringValue.TEN_LOAI);
-            listSanPham[index].ngayHetHan=DateTime.Parse(Console.ReadLine());
+
             Console.Write(StringValue.NGAY_NHAP);
-            listSanPham[index].ngayNhap=DateTime.Parse(Console.ReadLine());
-            Console.Write(StringValue.NHAP_KHAU);
-            //listSanPham[index].nhapKhau;
+            listSanPham[index].ngayNhap = DateTime.Parse(Console.ReadLine());
+
+            Console.Write(StringValue.HAN_DUNG);
+            listSanPham[index].ngayHetHan=DateTime.Parse(Console.ReadLine());
+
             Console.Write(StringValue.XUAT_XU);
             listSanPham[index].xuatSu = xuli(Console.ReadLine());
+
+            Console.Write(StringValue.NHAP_KHAU);
+            string nk = Console.ReadLine();
+            if (nk == "y")
+                listSanPham[index].nhapKhau = true;
+            else listSanPham[index].nhapKhau = false;
 
         }
 
