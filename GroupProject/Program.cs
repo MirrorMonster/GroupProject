@@ -101,7 +101,7 @@ namespace GroupProject
                                 }
                             case 2:
                                 {
-                                    Console.Write("Mời bạn nhập tên Sản Phẩm");
+                                    Console.Write("Mời bạn nhập tên Sản Phẩm: ");
                                     string sanPham = Console.ReadLine();
                                     int index2 = TimKiemSanPham(sanPham);
                                     if (index2 >= 0)
@@ -606,8 +606,13 @@ namespace GroupProject
             Console.Write(StringValue.GIA_BAN);
             listSanPham[index].giaBan = int.Parse(Console.ReadLine());
 
-            Console.Write(StringValue.LOAI);
-            listSanPham[index].loai = xuli(Console.ReadLine());
+            Console.Write(StringValue.LOAI+" Nếu bạn không muốn sửa nhấn Enter");
+            string type=xuli(Console.ReadLine());
+            if(type!="")
+            {            
+                listSanPham[index].loai = type;
+
+            }
 
             Console.Write(StringValue.SO_LUONG);
             listSanPham[index].soLuong = int.Parse(Console.ReadLine());
